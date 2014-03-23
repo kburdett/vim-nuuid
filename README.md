@@ -21,8 +21,8 @@ Use `:NuuidToggleAbbrev` to toggle the insert mode abbreviations. Useful if your
 Installation
 ----
 
-If you don't have a preferred plugin manager, I recommend using Tim Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen).
-```vim
+If you don't have a preferred plugin manager, I recommend using Tim Pope's [pathogen.vim](https://github.com/tpope/vim-pathogen). Then you can install like so.
+```sh
 cd ~/.vim/bundle
 git clone https://github.com/kburdett/vim-nuuid.git
 ```
@@ -44,4 +44,6 @@ let g:nuuid_iabbrev = 1
 
 License
 ----
-MIT, see LICENSE file for details.
+MIT
+
+It's free! Just don't be a jerk...
