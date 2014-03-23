@@ -9,14 +9,8 @@ if !has('python')
     finish
 endif
 
-" Initialize some defaults
-if !exists('g:nuuid_abbrev')
-	let g:nuuid_abbrev = 1
-endif
-
-
 " Use python to generate a new UUID
-function! s:NewUuid()
+function! NewUuid()
 python << endpy
 import vim
 from uuid import uuid4
@@ -25,29 +19,24 @@ endpy
 	return l:new_uuid
 endfunction
 
-" Replace all 'nuuid' and 'nguid' strings in the specified range
-function! s:ReplaceAllUuids() range
-	for i in range(a:firstline, a:lastline)
-		let line = getline(i)
-		let output = substitute(line, '\<n[gu]uid\>', s:NewUuid(), 'egI')
-		call setline(i, output)
-	endfor
-endfunction
-
-" Write a new UUID to the buffer
-function! s:InsertUuid()
-	let uuid = s:NewUuid()
-	exe "normal! i" . uuid
-endfunction
-
-
-" Export the user facing things
-if exists('g:nuuid_abbrev') && g:nuuid_abbrev
-	inoreabbrev <expr> nuuid <SID>NewUuid() 
-	inoreabbrev <expr> nguid <SID>NewUuid() 
+" Abbreviations
+if !exists('g:nuuid_no_iabbrev') || !g:nuuid_no_iabbrev
+	inoreabbrev <expr> nuuid NewUuid() 
+	inoreabbrev <expr> nguid NewUuid() 
 endif
 
-command! -nargs=0 Nuuid call <SID>InsertUuid()
-command! -nargs=0 Nguid call <SID>InsertUuid()
-command! -range -nargs=0 NuuidAll <line1>,<line2>call <SID>ReplaceAllUuids()
-command! -range -nargs=0 NguidAll <line1>,<line2>call <SID>ReplaceAllUuids()
+" commands
+command! -range -nargs=0 NuuidAll <line1>,<line2>substitute/\v<n[ug]uid>/\=NewUuid()/geI
+command! -range -nargs=0 NguidAll <line1>,<line2>NuuidAll
+command! -range -nargs=0 NuuidReplaceAll <line1>,<line2>substitute/\v(<[0-9a-f]{8}\-?([0-9a-f]{4}\-?){3}[0-9a-f]{12}|n[gu]uid)>/\=NewUuid()/geI
+command! -range -nargs=0 NguidReplaceAll <line1>,<line2>NuuidReplaceAll
+
+" Mappings
+nnoremap <Plug>Nuuid i<C-R>=NewUuid()<CR><Esc>
+inoremap <Plug>Nuuid <C-R>=NewUuid()<CR>
+vnoremap <Plug>Nuuid c<C-R>=NewUuid()<CR><Esc>
+
+if !exists("g:nuuid_no_mappings") || !g:nuuid_no_mappings
+	nmap <Leader>u <Plug>Nuuid
+	vmap <Leader>u <Plug>Nuuid
+endif
