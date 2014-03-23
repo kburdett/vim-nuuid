@@ -10,7 +10,7 @@ if !has('python')
 endif
 
 " Use python to generate a new UUID
-function! NewUuid()
+function! NuuidNewUuid()
 python << endpy
 import vim
 from uuid import uuid4
@@ -19,22 +19,42 @@ endpy
 	return l:new_uuid
 endfunction
 
-" Abbreviations
-if !exists('g:nuuid_no_iabbrev') || !g:nuuid_no_iabbrev
-	inoreabbrev <expr> nuuid NewUuid() 
-	inoreabbrev <expr> nguid NewUuid() 
+function! s:NuuidInsertAbbrev()
+	inoreabbrev <expr> nuuid NuuidNewUuid() 
+	inoreabbrev <expr> nguid NuuidNewUuid() 
+	let g:nuuid_iabbrev = 1
+endfunction
+
+function! s:NuuidInsertUnabbrev()
+	iunabbrev nuuid
+	iunabbrev nguid
+	let g:nuuid_iabbrev = 0
+endfunction
+
+function! NuuidToggleInsertAbbrev()
+	if exists('g:nuuid_iabbrev') && g:nuuid_iabbrev
+		call s:NuuidInsertUnabbrev()
+	else
+		call s:NuuidInsertAbbrev()
+	endif
+endfunction
+
+" initialize insert abbreviations
+if !exists('g:nuuid_iabbrev') || g:nuuid_iabbrev
+	call s:NuuidInsertAbbrev()
 endif
 
 " commands
-command! -range -nargs=0 NuuidAll <line1>,<line2>substitute/\v<n[ug]uid>/\=NewUuid()/geI
+command! -nargs=0 NuuidToggleIAbbrev call NuuidToggleInsertAbbrev()
+command! -range -nargs=0 NuuidAll <line1>,<line2>substitute/\v<n[ug]uid>/\=NuuidNewUuid()/geI
 command! -range -nargs=0 NguidAll <line1>,<line2>NuuidAll
-command! -range -nargs=0 NuuidReplaceAll <line1>,<line2>substitute/\v(<[0-9a-f]{8}\-?([0-9a-f]{4}\-?){3}[0-9a-f]{12}|n[gu]uid)>/\=NewUuid()/geI
+command! -range -nargs=0 NuuidReplaceAll <line1>,<line2>substitute/\v(<[0-9a-f]{8}\-?([0-9a-f]{4}\-?){3}[0-9a-f]{12}|n[gu]uid)>/\=NuuidNewUuid()/geI
 command! -range -nargs=0 NguidReplaceAll <line1>,<line2>NuuidReplaceAll
 
 " Mappings
-nnoremap <Plug>Nuuid i<C-R>=NewUuid()<CR><Esc>
-inoremap <Plug>Nuuid <C-R>=NewUuid()<CR>
-vnoremap <Plug>Nuuid c<C-R>=NewUuid()<CR><Esc>
+nnoremap <Plug>Nuuid i<C-R>=NuuidNewUuid()<CR><Esc>
+inoremap <Plug>Nuuid <C-R>=NuuidNewUuid()<CR>
+vnoremap <Plug>Nuuid c<C-R>=NuuidNewUuid()<CR><Esc>
 
 if !exists("g:nuuid_no_mappings") || !g:nuuid_no_mappings
 	nmap <Leader>u <Plug>Nuuid
