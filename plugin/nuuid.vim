@@ -26,8 +26,8 @@ function! s:NuuidInsertAbbrev()
 endfunction
 
 function! s:NuuidInsertUnabbrev()
-	iunabbrev nuuid
-	iunabbrev nguid
+	silent iunabbrev nuuid
+	silent iunabbrev nguid
 	let g:nuuid_iabbrev = 0
 endfunction
 
@@ -42,10 +42,12 @@ endfunction
 " initialize insert abbreviations
 if !exists('g:nuuid_iabbrev') || g:nuuid_iabbrev
 	call s:NuuidInsertAbbrev()
+else
+	call s:NuuidInsertUnabbrev()
 endif
 
 " commands
-command! -nargs=0 NuuidToggleIAbbrev call NuuidToggleInsertAbbrev()
+command! -nargs=0 NuuidToggleAbbrev call NuuidToggleInsertAbbrev()
 command! -range -nargs=0 NuuidAll <line1>,<line2>substitute/\v<n[ug]uid>/\=NuuidNewUuid()/geI
 command! -range -nargs=0 NguidAll <line1>,<line2>NuuidAll
 command! -range -nargs=0 NuuidReplaceAll <line1>,<line2>substitute/\v(<[0-9a-f]{8}\-?([0-9a-f]{4}\-?){3}[0-9a-f]{12}|n[gu]uid)>/\=NuuidNewUuid()/geI
