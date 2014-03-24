@@ -5,7 +5,7 @@ let g:nuuid_loaded = 1
 
 " Make sure we have python
 if !has('python')
-    echom "Error: nuuid requires Python support! Vim must be compiled with +python."
+    echo "Error: nuuid requires Python support! Vim must be compiled with +python."
     finish
 endif
 
