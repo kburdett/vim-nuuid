@@ -9,9 +9,9 @@ Usage
 
 Use the `<Plug>Nuuid` mapping to insert a new UUID at your current cursor location. This mapping is provided in insert, normal, and visual modes. By default, this will be mapped to `<Leader>u` in normal and visual modes.
 
-Use `:NuuidAll` to replace all occurrences of "nuuid" and "nguid". This command accepts a range and works in normal and visual (line-wise) modes. Useful for batch generating UUIDs. An `:NguidAll` alias is provided for our Microsoft friends.
+Use `:NuuidAll` to replace all occurrences of "nuuid" and "nguid". This command accepts a range and works in normal and visual (line-wise) modes. Useful for batch generating UUIDs.
 
-Use `:NuuidReplaceAll` to replace all all UUIDs, as well as all occurrences of "nuuid" and "nguid". This command accepts a range and works in normal and visual (line-wise) modes. Useful for regenerating UUIDs after copying and pasting a block of them. An `:NguidReplaceAll` alias is provided for our Microsoft friends.
+Use `:NuuidReplaceAll` to replace all all UUIDs, as well as all occurrences of "nuuid" and "nguid". This command accepts a range and works in normal and visual (line-wise) modes. Useful for regenerating UUIDs after copying and pasting a block of them.
 
 Use the insert mode abbreviations "nuuid" and "nguid" to quickly insert a new UUID into your file. Simply type the abbreviation followed by a non-word character (or `<Esc>`) and Vim will replace the text with a new UUID for you.
 

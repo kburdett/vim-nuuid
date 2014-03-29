@@ -39,9 +39,7 @@ endif
 " commands
 command! -nargs=0 NuuidToggleAbbrev call s:NuuidToggleInsertAbbrev()
 command! -range -nargs=0 NuuidAll <line1>,<line2>substitute/\v<n[ug]uid>/\=nuuid#NuuidNewUuid()/geI
-command! -range -nargs=0 NguidAll <line1>,<line2>NuuidAll
 command! -range -nargs=0 NuuidReplaceAll <line1>,<line2>substitute/\v(<[0-9a-f]{8}\-?([0-9a-f]{4}\-?){3}[0-9a-f]{12}|n[gu]uid)>/\=nuuid#NuuidNewUuid()/geI
-command! -range -nargs=0 NguidReplaceAll <line1>,<line2>NuuidReplaceAll
 
 " Mappings
 nnoremap <Plug>Nuuid i<C-R>=nuuid#NuuidNewUuid()<CR><Esc>
