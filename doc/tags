@@ -1,0 +1,15 @@
+:NuuidAll	nuuid.txt	/*:NuuidAll*
+:NuuidReplaceAll	nuuid.txt	/*:NuuidReplaceAll*
+:NuuidToggleAbbrev	nuuid.txt	/*:NuuidToggleAbbrev*
+<Plug>Nuuid	nuuid.txt	/*<Plug>Nuuid*
+nuuid-abbrev	nuuid.txt	/*nuuid-abbrev*
+nuuid-commands	nuuid.txt	/*nuuid-commands*
+nuuid-contents	nuuid.txt	/*nuuid-contents*
+nuuid-intro	nuuid.txt	/*nuuid-intro*
+nuuid-license	nuuid.txt	/*nuuid-license*
+nuuid-mappings	nuuid.txt	/*nuuid-mappings*
+nuuid-options	nuuid.txt	/*nuuid-options*
+nuuid-requirements	nuuid.txt	/*nuuid-requirements*
+nuuid.txt	nuuid.txt	/*nuuid.txt*
+nuuid_iabbrev	nuuid.txt	/*nuuid_iabbrev*
+nuuid_no_mappings	nuuid.txt	/*nuuid_no_mappings*
