@@ -5,23 +5,28 @@ let g:nuuid_loaded = 1
 
 " Make sure we have python
 if !has('python')
-	finish
+	" finish
 endif
 
 " Use python to generate a new UUID
 function! NuuidNewUuid()
+  if executable('uuidgen')
+      let l:new_uuid=system('uuidgen')[:-2]
+      return l:new_uuid
+    else
 python << endpy
 import vim
 from uuid import uuid4
 vim.command("let l:new_uuid = '%s'"% str(uuid4()))
 endpy
 	return l:new_uuid
+  endif
 endfunction
 
 
 function! s:NuuidInsertAbbrev()
-	inoreabbrev <expr> nuuid NuuidNewUuid() 
-	inoreabbrev <expr> nguid NuuidNewUuid() 
+	inoreabbrev <expr> nuuid NuuidNewUuid()
+	inoreabbrev <expr> nguid NuuidNewUuid()
 	let g:nuuid_iabbrev = 1
 endfunction
 
