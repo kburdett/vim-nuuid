@@ -15,21 +15,15 @@ endif
 " Use python to generate a new UUID
 function! NuuidNewUuid()
   if executable('uuidgen')
-      let l:new_uuid=system('uuidgen')[:-2]
-      if g:nuuid_case == "lower"
-        return tolower(l:new_uuid)
-      else
-        return toupper(l:new_uuid)
-    else
+    let l:new_uuid=system('uuidgen')[:-2]
+    return g:nuuid_case == "lower" ? tolower(l:new_uuid) : toupper(l:new_uuid)
+  else
 python << endpy
 import vim
 from uuid import uuid4
 vim.command("let l:new_uuid = '%s'"% str(uuid4()))
 endpy
-  if g:nuuid_case == "lower"
-    return tolower(l:new_uuid)
-  else
-    return toupper(l:new_uuid)
+    return g:nuuid_case == "lower" ? tolower(l:new_uuid) : toupper(l:new_uuid)
   endif
 endfunction
 
