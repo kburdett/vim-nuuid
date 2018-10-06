@@ -16,7 +16,7 @@ endif
 function! NuuidNewUuid()
   if executable('uuidgen')
       let l:new_uuid=system('uuidgen')[:-2]
-      if g:nuid_case == "lower"
+      if g:nuuid_case == "lower"
         return tolower(l:new_uuid)
       else
         return toupper(l:new_uuid)
@@ -26,7 +26,7 @@ import vim
 from uuid import uuid4
 vim.command("let l:new_uuid = '%s'"% str(uuid4()))
 endpy
-  if g:nuid_case == "lower"
+  if g:nuuid_case == "lower"
     return tolower(l:new_uuid)
   else
     return toupper(l:new_uuid)
