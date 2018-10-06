@@ -3,6 +3,10 @@ if exists('g:nuuid_loaded') && g:nuuid_loaded
 endif
 let g:nuuid_loaded = 1
 
+if !exists('g:nuuid_case')
+	let g:nuuid_case = "lower"
+endif
+
 " Make sure we have python
 if !has('python')
 	" finish
@@ -12,14 +16,20 @@ endif
 function! NuuidNewUuid()
   if executable('uuidgen')
       let l:new_uuid=system('uuidgen')[:-2]
-      return l:new_uuid
+      if g:nuid_case == "lower"
+        return tolower(l:new_uuid)
+      else
+        return toupper(l:new_uuid)
     else
 python << endpy
 import vim
 from uuid import uuid4
 vim.command("let l:new_uuid = '%s'"% str(uuid4()))
 endpy
-	return l:new_uuid
+  if g:nuid_case == "lower"
+    return tolower(l:new_uuid)
+  else
+    return toupper(l:new_uuid)
   endif
 endfunction
 
