@@ -35,8 +35,8 @@ function! s:NuuidInsertAbbrev()
 endfunction
 
 function! s:NuuidInsertUnabbrev()
-	silent iunabbrev nuuid
-	silent iunabbrev nguid
+	silent! iunabbrev nuuid
+	silent! iunabbrev nguid
 	let g:nuuid_iabbrev = 0
 endfunction
 
